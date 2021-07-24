@@ -1,0 +1,28 @@
+version: '3.0'
+services:
+    # redis:
+    #     image: redis:6-alpine
+    #     ports:
+    #         - "6379:6379"
+    #     container_name: redis
+    
+    db:
+        image: postgres:12
+        container_name: db
+        ports:
+            - 5432:5432
+        
+    backend: 
+        build:
+            context: ./
+            dockerfile: ./docker/Dockerfile
+
+        env_file:
+            - ./docker/.env
+        volumes:
+            - ./:/api
+        ports:
+            - 8000:8000
+        container_name: news-api
+        # depends_on:
+        #     - redis
