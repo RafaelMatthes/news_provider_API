@@ -10,6 +10,7 @@ router = routers.DefaultRouter()
 
 router.register('admin/articles', ArticleViewSet, basename='Articles')
 router.register('admin/authors', AuthorViewSet, basename='Authors')
+router.register('login', LoginViewSet, basename='Login')
 
 
 urlpatterns = [

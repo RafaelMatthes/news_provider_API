@@ -4,6 +4,20 @@ from rest_framework import viewsets, generics
 from portal.models import *
 from portal.serializer import *
 
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
+
+
+
+class LoginViewSet(viewsets.ViewSet):
+
+    serializer_class = AuthTokenSerializer
+
+    def create(self, request, *args, **kwargs):
+        return ObtainAuthToken().as_view()(request=request._request)
+
+
+
 class AuthorViewSet(viewsets.ModelViewSet):
         queryset = Author.objects.all()
         serializer_class = AuthorSerializer
