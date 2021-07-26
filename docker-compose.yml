@@ -9,6 +9,10 @@ services:
     db:
         image: postgres:12
         container_name: db
+        environment:
+            - POSTGRES_DB=PostgreSQL
+            - POSTGRES_USER=challenge
+            - POSTGRES_PASSWORD=challenge
         ports:
             - 5432:5432
         
@@ -24,5 +28,5 @@ services:
         ports:
             - 8000:8000
         container_name: news-api
-        # depends_on:
-        #     - redis
+        depends_on:
+            - db
