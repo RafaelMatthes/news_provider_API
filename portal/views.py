@@ -12,12 +12,22 @@ class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
+    
 class getArticlesByCategoryViewSet(generics.ListAPIView):
 
-    def get_query_set(self):
+    def get_queryset(self):
         queryset = Article.objects.filter(category__icontains=self.kwargs.get('category'))
         return queryset
     
     serializer_class = getArticlesByCategorySerializer
+
+
+class getArticlesByIdViewSet(generics.ListAPIView):
+
+    def get_queryset(self):
+        queryset = Article.objects.filter(id=self.kwargs.get('id'))
+        return queryset
+    
+    serializer_class = getArticlesByIdSerializer
 
 

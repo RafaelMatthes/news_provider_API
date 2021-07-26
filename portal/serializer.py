@@ -18,5 +18,13 @@ class getArticlesByCategorySerializer(serializers.ModelSerializer):
         model = Article
         fields = "__all__"
 
+class getArticlesByIdSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Article
+        fields = "__all__"
+
+
+
 
 
