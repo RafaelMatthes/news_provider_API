@@ -1,5 +1,5 @@
-from django.contrib import admin
-from django.urls import path, include, re_path
+# from django.contrib import admin
+from django.urls import path, include
 from portal.views import *
 from rest_framework import routers
 from django.conf import settings
@@ -11,6 +11,7 @@ router = routers.DefaultRouter()
 router.register('admin/articles', ArticleViewSet, basename='Articles')
 router.register('admin/authors', AuthorViewSet, basename='Authors')
 router.register('login', LoginViewSet, basename='Login')
+router.register('sign-up', UserViewSet, basename='Signup')
 
 
 urlpatterns = [
