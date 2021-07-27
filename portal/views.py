@@ -31,7 +31,7 @@ class UserViewSet(viewsets.ModelViewSet):
             self.permission_classes = (AllowAny,)
 
         return super(UserViewSet, self).get_permissions()
-        
+
 class AuthorViewSet(viewsets.ModelViewSet):
         queryset = Author.objects.all()
         serializer_class = AuthorSerializer
@@ -67,8 +67,6 @@ class getArticlesByIdViewSet(generics.ListAPIView):
     def get_serializer_class(self):
 
         user = self.request.user
-        print('------', user)
-        print(' --------- ',user.is_authenticated)
         if user.is_authenticated:    
             return getArticlesByIdSerializer
         else:
