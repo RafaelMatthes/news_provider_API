@@ -15,34 +15,48 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ['id', 'category', 'title', 'summary', 'firstParagraph', 'body', 'author']
+        fields = ['id', 'author', 'category', 'title', 'summary', 'firstParagraph', 'body']
 
     def create(self, validated_data):
         return Article.objects.create(**validated_data)
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['author'] = AuthorSerializer(instance.author).data
+        return response
+
 class getArticlesByCategorySerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True)
-    author_id = serializers.SlugRelatedField(queryset=Author.objects.all(), slug_field='name', write_only=True)
 
     class Meta:
         model = Article
-        fields = ['id', 'author', 'author_id', 'category', 'title', 'summary' ]
+        fields = ['id', 'author', 'category', 'title', 'summary' ]
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['author'] = AuthorSerializer(instance.author).data
+        return response
 
 class getArticlesByIdSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True)
-    author_id = serializers.SlugRelatedField(queryset=Author.objects.all(), slug_field='name', write_only=True)
 
     class Meta:
         model = Article
-        fields = ['id', 'author', 'author_id', 'category', 'title', 'summary', 'firstParagraph', 'body']
+        fields = ['id', 'author', 'category', 'title', 'summary', 'firstParagraph', 'body']
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['author'] = AuthorSerializer(instance.author).data
+        return response
 
 class getArticlesByIdAnonymousSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer(read_only=True)
-    author_id = serializers.SlugRelatedField(queryset=Author.objects.all(), slug_field='name', write_only=True)
-   
+      
     class Meta:
         model = Article
-        fields = fields = ['id', 'author', 'author_id', 'category', 'title', 'summary', 'firstParagraph']
+        fields = fields = ['id', 'author', 'category', 'title', 'summary', 'firstParagraph']
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['author'] = AuthorSerializer(instance.author).data
+        return response
 
 class UserSerializer(serializers.ModelSerializer):
 
