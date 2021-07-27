@@ -15,7 +15,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = "__all__"
+        fields = ['id', 'category', 'title', 'summary', 'firstParagraph', 'body']
 
     def create(self, validated_data):
         return Article.objects.create(**validated_data)
@@ -26,13 +26,23 @@ class getArticlesByCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = "__all__"
+        fields = ['id', 'author', 'author_id', 'category', 'title', 'summary' ]
 
 class getArticlesByIdSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer(read_only=True)
+    author_id = serializers.SlugRelatedField(queryset=Author.objects.all(), slug_field='name', write_only=True)
 
     class Meta:
         model = Article
-        fields = "__all__"
+        fields = ['id', 'author', 'author_id', 'category', 'title', 'summary', 'firstParagraph', 'body']
+
+class getArticlesByIdAnonymousSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer(read_only=True)
+    author_id = serializers.SlugRelatedField(queryset=Author.objects.all(), slug_field='name', write_only=True)
+   
+    class Meta:
+        model = Article
+        fields = fields = ['id', 'author', 'author_id', 'category', 'title', 'summary', 'firstParagraph']
 
 class UserSerializer(serializers.ModelSerializer):
 

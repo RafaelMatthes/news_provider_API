@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 class Author(models.Model):
     name = models.CharField(max_length=255)
@@ -15,7 +16,12 @@ class Article(models.Model):
     summary = models.CharField(max_length=255)
     firstParagraph = models.CharField(max_length=255)
     body = models.TextField(blank=True)
+    slug_category  = models.CharField(max_length=255, editable=False, blank=True)
 
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        self.slug_category = slugify(self.category)
+        
+        super(Article, self).save(*args, **kwargs)
