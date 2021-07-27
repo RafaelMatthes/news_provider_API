@@ -12,6 +12,8 @@ DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = []
 
+APPEND_SLASH = False
+
 
 # Application definition
 
