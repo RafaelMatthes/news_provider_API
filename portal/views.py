@@ -1,5 +1,4 @@
 # from django.db.models import query
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from portal.models import *
 from portal.serializer import *
@@ -9,6 +8,7 @@ from rest_framework.permissions import AllowAny
 
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework import permissions
 
 
 from rest_framework.authentication import BasicAuthentication
@@ -21,15 +21,29 @@ class LoginViewSet(viewsets.ViewSet):
     def create(self, request, *args, **kwargs):
         return ObtainAuthToken().as_view()(request=request._request)
 
+class UserViewSet(viewsets.ModelViewSet):
+
+    queryset = get_user_model().objects
+    serializer_class = UserSerializer
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            self.permission_classes = (AllowAny,)
+
+        return super(UserViewSet, self).get_permissions()
+        
 class AuthorViewSet(viewsets.ModelViewSet):
         queryset = Author.objects.all()
         serializer_class = AuthorSerializer
-        permissions_class = [IsAuthenticated]
+        # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+        http_method_names = ['get','post','delete']
 
 class ArticleViewSet(viewsets.ModelViewSet):
    
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    http_method_names = ['get','post','delete']
     
 class getArticlesByCategoryViewSet(generics.ListAPIView):
 
@@ -67,15 +81,6 @@ class getArticlesByIdViewSet(generics.ListAPIView):
     # filterset_fields = ('slug_category',)
     # search_fields = ['@slug_category',]
 
-class UserViewSet(viewsets.ModelViewSet):
 
-    queryset = get_user_model().objects
-    serializer_class = UserSerializer
-
-    def get_permissions(self):
-        if self.request.method == 'POST':
-            self.permission_classes = (AllowAny,)
-
-        return super(UserViewSet, self).get_permissions()
 
 

@@ -15,7 +15,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ['id', 'category', 'title', 'summary', 'firstParagraph', 'body']
+        fields = ['id', 'category', 'title', 'summary', 'firstParagraph', 'body', 'author']
 
     def create(self, validated_data):
         return Article.objects.create(**validated_data)
