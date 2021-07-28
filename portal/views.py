@@ -35,6 +35,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = get_user_model().objects
     serializer_class = UserSerializer
+    http_method_names = ['post']
 
     def get_permissions(self):
         if self.request.method == 'POST':
