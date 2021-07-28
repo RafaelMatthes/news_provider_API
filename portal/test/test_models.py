@@ -1,5 +1,7 @@
 from django.test import TestCase
 from ..models import *
+from ..serializer import *
+from django.contrib.auth import get_user_model
 
 
 class ModelBase(TestCase):
@@ -18,6 +20,21 @@ class ModelBase(TestCase):
             firstParagraph='Lorem Ipsum',
             body='Lorem Ipsum',
         )
+
+        user = get_user_model()
+        self.user = user.objects.create(
+            username='Teste',
+            password='Teste',
+            email='teste@mail.com'
+        )
+               
+
+        self.AuthorSerializer = AuthorSerializer(instance=self.author)
+        self.ArticleSerializer = ArticleSerializer(instance=self.article)
+        self.getArticlesByCategorySerializer = getArticlesByCategorySerializer(instance=self.article)
+        self.getArticlesByIdSerializer = getArticlesByIdSerializer(instance=self.article)
+        self.getArticlesByIdAnonymousSerializer = getArticlesByIdAnonymousSerializer(instance=self.article)
+        self.UserSerializer = UserSerializer(instance=self.user)
 
 class AuthorModelTest(ModelBase):
 

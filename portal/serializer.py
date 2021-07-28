@@ -29,7 +29,7 @@ class getArticlesByCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ['id', 'author', 'category', 'title', 'summary' ]
+        fields = ['id', 'author', 'category', 'title', 'summary']
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
