@@ -1,5 +1,5 @@
 from .test_models import ModelBase
-from rest_framework.test import force_authenticate, APIClient
+from rest_framework.test import force_authenticate
 from portal.models import *
 from django.urls import reverse
 from rest_framework import status
@@ -38,6 +38,21 @@ class ViewSetsTestCase(ModelBase):
         force_authenticate(response, user=self.user)
 
         self.assertEquals(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_articles_viewset_get_by_id(self):
+           
+        list_url = '/api/articles/1'
+
+        response = self.client.get(list_url, {})
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+    def test_articles_viewset_get_by_category(self):
+           
+        list_url = '/api/articles/teste/'
+
+        response = self.client.get(list_url, {})
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
 
 
 
