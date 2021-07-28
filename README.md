@@ -8,7 +8,7 @@
         
 - Create an .env file inside the projetct "docker folder":
 
-        DEBUG = True (for development mode, False for production)
+        DEBUG = True #(for development mode, False for production)
 
         POSTGRES_ENGINE=django.db.backends.postgresql
         POSTGRES_NAME=PostgreSQL
