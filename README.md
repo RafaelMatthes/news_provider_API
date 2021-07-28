@@ -2,7 +2,7 @@
 
 ## How to use the application.
 
-- System Requeriment:
+- System Requirement:
 
         Docker version 20
         
@@ -25,21 +25,21 @@
     
         docker exec -it news-api python manage.py test
 
-# Authentication by Token.
+## Authentication by Token.
 
 For clients to authenticate, the token key should be included in the Authorization HTTP header. The key should be prefixed by the string literal "Token", with whitespace separating the two strings. For example:
  
         Authorization: Token <xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx>
         Content-Type: application/json
 
-# Admin User.
+## Admin User.
 
-After create a user, enter in django admin and set "isStaff" True, only Staff can manage the /admin/ endpoints.
+After creating a user, enter in django admin and set "isStaff" True, only Staff can manage the /admin/ endpoints.
 
-- superUser is required to acess the Django Admin.
+- SuperUser is required to access the Django Admin.
      - docker exec -it news-api /bin/bash
      - python manage.py createsuperuser
 
-# Documentation endpoint.
+## Documentation endpoint.
 
         /api/docs
