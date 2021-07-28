@@ -4,6 +4,7 @@ from portal.serializer import *
 
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny
+from rest_framework.authentication import BasicAuthentication
 
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -44,15 +45,16 @@ class UserViewSet(viewsets.ModelViewSet):
         return super(UserViewSet, self).get_permissions()
 
 class AuthorViewSet(viewsets.ModelViewSet):
-        queryset = Author.objects.all()
-        serializer_class = AuthorSerializer
-        permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-        http_method_names = ['get','post','delete']
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    authentication_class = [BasicAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    http_method_names = ['get','post','delete']
 
 class ArticleViewSet(viewsets.ModelViewSet):
-   
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    authentication_class = [BasicAuthentication]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     http_method_names = ['get','post','delete']
     
