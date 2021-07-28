@@ -1,4 +1,4 @@
-# from django.contrib import admin
+from django.contrib import admin
 from django.urls import path, include, re_path
 from portal.views import *
 from rest_framework import routers
@@ -13,6 +13,7 @@ router.register('login', LoginViewSet, basename='Login')
 router.register('sign-up', UserViewSet, basename='Signup')
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     re_path('^api/articles/(?P<category>.+)/$',  getArticlesByCategoryViewSet.as_view()),
     path('api/articles/<int:id>', getArticlesByIdViewSet.as_view()),

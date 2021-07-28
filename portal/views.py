@@ -3,12 +3,11 @@ from portal.models import *
 from portal.serializer import *
 
 from django.contrib.auth import get_user_model
-from rest_framework.permissions import AllowAny
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import AllowAny, IsAdminUser
+from rest_framework.authentication import TokenAuthentication
 
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework import permissions
 
 from re import sub
 from rest_framework.authtoken.models import Token
@@ -47,15 +46,15 @@ class UserViewSet(viewsets.ModelViewSet):
 class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
-    authentication_class = [BasicAuthentication]
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    authentication_class = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
     http_method_names = ['get','post','delete']
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    authentication_class = [BasicAuthentication]
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    authentication_class = [TokenAuthentication]
+    permission_classes = [IsAdminUser]
     http_method_names = ['get','post','delete']
     
 class getArticlesByCategoryViewSet(generics.ListAPIView):
