@@ -2,6 +2,7 @@ from django.test import TestCase
 from ..models import *
 from ..serializer import *
 from django.contrib.auth import get_user_model
+from rest_framework.authtoken.models import Token
 
 
 class ModelBase(TestCase):
@@ -23,11 +24,13 @@ class ModelBase(TestCase):
 
         user = get_user_model()
         self.user = user.objects.create(
-            username='Teste',
-            password='Teste',
+            username='Test',
+            password='123123',
             email='teste@mail.com'
         )
-               
+        self.user.is_staff = True
+        self.user.save()
+        self.token = Token.objects.create(user=self.user)
 
         self.AuthorSerializer = AuthorSerializer(instance=self.author)
         self.ArticleSerializer = ArticleSerializer(instance=self.article)

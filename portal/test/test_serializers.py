@@ -1,7 +1,4 @@
-from django.db.models.query import InstanceCheckMeta
 from .test_models import ModelBase
-
-
 
 class AuthorSerializerTestCase(ModelBase):
        
